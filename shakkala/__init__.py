@@ -21,7 +21,7 @@ Created on Sat Dec 16 22:46:28 2017
 
 @author: Ahmad Barqawi
 """
-import helper
+from shakkala import helper
 import os
 import tensorflow as tf
 from keras.models import Model
@@ -109,11 +109,19 @@ class Shakkala:
 def moshakal(input_text, version):
     print(version)
     sh = Shakkala('./', version)
-    input_int = sh.prepare_input(input_text)
     model, graph = sh.get_model()
-    with graph.as_default():
-        logits = model.predict(input_int)[0]
-    predicted_harakat = sh.logits_to_text(logits)
-    final_output = sh.get_final_text(input_text, predicted_harakat)
-    return final_output
 
+
+    # input_int = sh.prepare_input(input_text)
+    # with graph.as_default():
+    #     logits = model.predict(input_int)[0]
+    # predicted_harakat = sh.logits_to_text(logits)
+    # final_output = sh.get_final_text(input_text, predicted_harakat)
+    # return final_output
+
+# def load_model(version):
+#     sh = Shakkala('./', version)
+#     input_int = sh.prepare_input(input_text)
+#     model, graph = sh.get_model()
+#     with graph.as_default():
+#         logits = model.predict(input_int)[0]
