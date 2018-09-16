@@ -27,7 +27,6 @@ import tensorflow as tf
 from keras.models import Model
 from keras.models import load_model
 from keras.optimizers import Adam
-from keras.losses import sparse_categorical_crossentropy
 from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
@@ -105,3 +104,16 @@ class Shakkala:
     # common
     def __pad_size(self, x, length=None):
         return pad_sequences(x, maxlen=length, padding='post')
+
+
+def moshakal(input_text, version):
+    print(version)
+    sh = Shakkala('./', version)
+    input_int = sh.prepare_input(input_text)
+    model, graph = sh.get_model()
+    with graph.as_default():
+        logits = model.predict(input_int)[0]
+    predicted_harakat = sh.logits_to_text(logits)
+    final_output = sh.get_final_text(input_text, predicted_harakat)
+    return final_output
+
